@@ -1,4 +1,4 @@
-"from fastapi import FastAPI, APIRouter, HTTPException, Query
+from fastapi import FastAPI, APIRouter, HTTPException, Query
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -448,5 +448,5 @@ logger = logging.getLogger(__name__)
 @app.on_event(\"shutdown\")
 async def shutdown_db_client():
     client.close()
-"
+
 
