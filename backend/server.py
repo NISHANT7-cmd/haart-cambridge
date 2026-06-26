@@ -96,15 +96,6 @@ async def shutdown_db_client():
 2|DB_NAME="test_database"
 3|CORS_ORIGINS="*"
 
-===END
-
-===FILE: /app/frontend/.env
-/app/frontend/.env:
-1|REACT_APP_BACKEND_URL=https://property-cambridge.preview.emergentagent.com
-2|WDS_SOCKET_PORT=443
-3|ENABLE_HEALTH_CHECK=false
-
-===END
 
 ===FILE: /app/frontend/package.json
 /app/frontend/package.json:
