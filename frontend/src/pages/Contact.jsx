@@ -27,7 +27,7 @@ export default function Contact() {
             Pop in. <span className=\"italic\">The kettle is always on.</span>
           </h1>
           <p className=\"mt-6 text-[#475569] leading-relaxed\">
-            Right on Regent Street, our office is a short walk from Parker's Piece and the city centre. Come in for a coffee and a chat about Cambridge property.
+            Right on Regent Street, our office is a short walk from Parker&apos;s Piece and the city centre. Come in for a coffee and a chat about Cambridge property.
           </p>
 
           <div className=\"mt-10 space-y-5 text-sm\">
