@@ -35,7 +35,7 @@ export default function Contact() {
               <MapPin size={18} strokeWidth={1.5} className=\"text-[#7A1A2A] mt-0.5\" />
               <span>64 Regent St, Cambridge CB2 1DP, United Kingdom</span>
             </div>
-            <a href=\"tel:+441223785791\" className=\"flex gap-3 items-center text-[#0F172A] hover:text-[#7A1A2A]\" data-testid=\"contact-phone\">
+            <a href=\"tel:+441223785791\" className=\"flex gap-3 items-center text-[#0F172A] hover:text-[#7A1A2A]\" data-testid=\"contact-phone-link\">
               <Phone size={18} strokeWidth={1.5} className=\"text-[#7A1A2A]\" /> 01223 785 791
             </a>
             <a href=\"mailto:cambridge@haart.co.uk\" className=\"flex gap-3 items-center text-[#0F172A] hover:text-[#7A1A2A]\" data-testid=\"contact-email\">
