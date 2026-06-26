@@ -126,7 +126,7 @@ export default function Home() {
               A name Cambridge has trusted for generations.
             </h2>
             <p className=\"mt-6 text-[#475569] text-base leading-relaxed max-w-xl\">
-              From our office on Regent Street, we have helped thousands of Cambridge households move — across colleges, villages and the city's most coveted postcodes. Our partners know each road, each school catchment, each conservation rule.
+              From our office on Regent Street, we have helped thousands of Cambridge households move — across colleges, villages and the city's most coveted postcodes. Our partners know each road, each school catchment, each conservation rule. We know Cambridge.
             </p>
             <div className=\"mt-10 grid grid-cols-3 gap-6 max-w-md\">
               {[
