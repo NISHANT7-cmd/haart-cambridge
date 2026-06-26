@@ -1,160 +1,92 @@
+from fastapi import FastAPI, APIRouter
+from dotenv import load_dotenv
+from starlette.middleware.cors import CORSMiddleware
+from motor.motor_asyncio import AsyncIOMotorClient
+import os
+import logging
+from pathlib import Path
+from pydantic import BaseModel, Field, ConfigDict
+from typing import List
+import uuid
+from datetime import datetime, timezone
 
-Action: {"type": "mcp_tool", "tool_name": "mcp_view_bulk", "tool_arguments": {"paths": ["/app/backend/server.py", "/app/frontend/src/App.js", "/app/frontend/src/App.css", "/app/frontend/src/index.css", "/app/backend/.env", "/app/frontend/.env", "/app/frontend/package.json", "/app/backend/requirements.txt", "/app/frontend/tailwind.config.js"]}}
-Observation: ===FILE: /app/backend/server.py
-/app/backend/server.py:
-1|from fastapi import FastAPI, APIRouter
-2|from dotenv import load_dotenv
-3|from starlette.middleware.cors import CORSMiddleware
-4|from motor.motor_asyncio import AsyncIOMotorClient
-5|import os
-6|import logging
-7|from pathlib import Path
-8|from pydantic import BaseModel, Field, ConfigDict
-9|from typing import List
-10|import uuid
-11|from datetime import datetime, timezone
-12|
-13|
-14|ROOT_DIR = Path(__file__).parent
-15|load_dotenv(ROOT_DIR / '.env')
-16|
-17|# MongoDB connection
-18|mongo_url = os.environ['MONGO_URL']
-19|client = AsyncIOMotorClient(mongo_url)
-20|db = client[os.environ['DB_NAME']]
-21|
-22|# Create the main app without a prefix
-23|app = FastAPI()
-24|
-25|# Create a router with the /api prefix
-26|api_router = APIRouter(prefix="/api")
-27|
-28|
-29|# Define Models
-30|class StatusCheck(BaseModel):
-31|    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-32|    
-33|    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-34|    client_name: str
-35|    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-36|
-37|class StatusCheckCreate(BaseModel):
-38|    client_name: str
-39|
-40|# Add your routes to the router instead of directly to app
-41|@api_router.get("/")
-42|async def root():
-43|    return {"message": "Hello World"}
-44|
-45|@api_router.post("/status", response_model=StatusCheck)
-46|async def create_status_check(input: StatusCheckCreate):
-47|    status_dict = input.model_dump()
-48|    status_obj = StatusCheck(**status_dict)
-49|    
-50|    # Convert to dict and serialize datetime to ISO string for MongoDB
-51|    doc = status_obj.model_dump()
-52|    doc['timestamp'] = doc['timestamp'].isoformat()
-53|    
-54|    _ = await db.status_checks.insert_one(doc)
-55|    return status_obj
-56|
-57|@api_router.get("/status", response_model=List[StatusCheck])
-58|async def get_status_checks():
-59|    # Exclude MongoDB's _id field from the query results
-60|    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-61|    
-62|    # Convert ISO string timestamps back to datetime objects
-63|    for check in status_checks:
-64|        if isinstance(check['timestamp'], str):
-65|            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-66|    
-67|    return status_checks
-68|
-69|# Include the router in the main app
-70|app.include_router(api_router)
-71|
-72|app.add_middleware(
-73|    CORSMiddleware,
-74|    allow_credentials=True,
-75|    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-76|    allow_methods=["*"],
-77|    allow_headers=["*"],
-78|)
-79|
-80|# Configure logging
-81|logging.basicConfig(
-82|    level=logging.INFO,
-83|    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-84|)
-85|logger = logging.getLogger(__name__)
-86|
-87|@app.on_event("shutdown")
-88|async def shutdown_db_client():
-89|    client.close()
 
-===END
+ROOT_DIR = Path(__file__).parent
+load_dotenv(ROOT_DIR / '.env')
 
-===FILE: /app/frontend/src/App.js
-/app/frontend/src/App.js:
-1|import { useEffect } from "react";
-2|import "@/App.css";
-3|import { BrowserRouter, Routes, Route } from "react-router-dom";
-4|import axios from "axios";
-5|import { HOME } from "@/constants/testIds";
-6|
-7|const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-8|const API = `${BACKEND_URL}/api`;
-9|
-10|const Home = () => {
-11|  const helloWorldApi = async () => {
-12|    try {
-13|      const response = await axios.get(`${API}/`);
-14|      console.log(response.data.message);
-15|    } catch (e) {
-16|      console.error(e, `errored out requesting / api`);
-17|    }
-18|  };
-19|
-20|  useEffect(() => {
-21|    helloWorldApi();
-22|  }, []);
-23|
-24|  return (
-25|    <div>
-26|      <header className="App-header">
-27|        <a
-28|          data-testid={HOME.emergentLink}
-29|          className="App-link"
-30|          href="https://emergent.sh"
-31|          target="_blank"
-32|          rel="noopener noreferrer"
-33|        >
-34|          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-35|        </a>
-36|        <p className="mt-5">Building something incredible ~!</p>
-37|      </header>
-38|    </div>
-39|  );
-40|};
-41|
-42|function App() {
-43|  return (
-44|    <div className="App">
-45|      <BrowserRouter>
-46|        <Routes>
-47|          <Route path="/" element={<Home />}>
-48|            <Route index element={<Home />} />
-49|          </Route>
-50|        </Routes>
-51|      </BrowserRouter>
-52|    </div>
-53|  );
-54|}
-55|
-56|export default App;
-57|
+# MongoDB connection
+mongo_url = os.environ['MONGO_URL']
+client = AsyncIOMotorClient(mongo_url)
+db = client[os.environ['DB_NAME']]
 
-===END
+# Create the main app without a prefix
+app = FastAPI()
+
+# Create a router with the /api prefix
+api_router = APIRouter(prefix="/api")
+
+
+# Define Models
+class StatusCheck(BaseModel):
+    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+  client_name: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class StatusCheckCreate(BaseModel):
+    client_name: str
+
+# Add your routes to the router instead of directly to app
+@api_router.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+@api_router.post("/status", response_model=StatusCheck)
+async def create_status_check(input: StatusCheckCreate):
+    status_dict = input.model_dump()
+    status_obj = StatusCheck(**status_dict)
+    
+    # Convert to dict and serialize datetime to ISO string for MongoDB
+    doc = status_obj.model_dump()
+    doc['timestamp'] = doc['timestamp'].isoformat()
+    
+    _ = await db.status_checks.insert_one(doc)
+    return status_obj
+
+@api_router.get("/status", response_model=List[StatusCheck])
+async def get_status_checks():
+    # Exclude MongoDB's _id field from the query results
+    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
+    
+    # Convert ISO string timestamps back to datetime objects
+    for check in status_checks:
+        if isinstance(check['timestamp'], str):
+            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
+    
+      return status_checks
+
+# Include the router in the main app
+app.include_router(api_router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_credentials=True,
+    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+@app.on_event("shutdown")
+async def shutdown_db_client():
+  client.close()
 
 ===FILE: /app/frontend/src/App.css
 /app/frontend/src/App.css:
