@@ -1,0 +1,135 @@
+{
+  "theme_and_archetype": {
+    "theme": "LIGHT",
+    "archetype": "Hybrid 4/5: Old Money Tech / Heritage Luxury",
+    "description": "A highly sophisticated, tactile light theme designed for a premium Cambridge real estate market. The design eschews standard 'tech gradients' and 'SaaS blue' in favor of deep Oxford Slate, Heritage Claret Red, and Bone White backgrounds. Focuses on 'Quiet Luxury' with massive negative space, high contrast serif typography, and rich cinematic imagery."
+  },
+  "typography": {
+    "primary_font": {
+      "family": "Cormorant Garamond",
+      "import_url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap",
+      "usage": "H1, H2, H3, large blockquotes, key numbers. Gives the Cambridge heritage feel."
+    },
+    "secondary_font": {
+      "family": "Manrope",
+      "import_url": "https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap",
+      "usage": "Body text, UI elements, buttons, property specs, search inputs. Provides clean, highly legible modern contrast to the serif."
+    },
+    "rules": {
+      "headings": "MUST use tight letter spacing (tracking-tight or tracking-tighter). Avoid default bold; prefer Light or SemiBold for contrast.",
+      "overlines": "MUST be uppercase, tiny text (text-xs), and extremely wide spacing (tracking-[0.2em]).",
+      "hierarchy": "H1 max size is text-6xl (clamp via tailwind). Don't jump from text-6xl directly to text-sm. Use fluid typography scales."
+    }
+  },
+  "colors": {
+    "backgrounds": {
+      "base": "#F9F8F6",
+      "surface": "#EFECE6",
+      "surface_elevated": "#FFFFFF"
+    },
+    "text": {
+      "primary": "#0F172A",
+      "secondary": "#475569",
+      "muted": "#94A3B8",
+      "inverse": "#F9F8F6"
+    },
+    "brand": {
+      "primary": "#0F172A",
+      "accent": "#7A1A2A",
+      "accent_hover": "#5C131F"
+    },
+    "borders": {
+      "subtle": "#D1CDCA",
+      "strong": "#0F172A"
+    },
+    "rules": {
+      "no_gradients": "Do not use cheap UI gradients. Color exists to highlight action or convey heritage.",
+      "contrast": "Ensure minimum 4.5:1 ratio. Overlaid text on hero images MUST use gradients or glassmorphism backing to remain legible.",
+      "glassmorphism": "For sticky headers: backdrop-blur-xl bg-[#F9F8F6]/80 with a subtle border-b."
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing (The 'Godly' standard). Overuse padding rather than underuse it to signal luxury.",
+    "section_padding": "py-20 md:py-32",
+    "container_padding": "px-6 md:px-12 lg:px-24",
+    "grids": {
+      "bento_hero": "grid-cols-1 md:grid-cols-12 gap-6. Use overlapping asymmetrical blocks for the hero search and imagery.",
+      "property_grid": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 or gap-12."
+    }
+  },
+  "motion": {
+    "scroll": "MANDATORY: Use `lenis` for smooth scrolling to give the site physical weight.",
+    "reveal": "Use `framer-motion` for slow, elegant fade-up animations (0.8s duration, ease-out) on sections and property cards.",
+    "hover": "Property cards MUST scale their images slowly on hover (`transition-transform duration-700 ease-out hover:scale-105`) while the container remains fixed."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#0F172A] text-white rounded-none px-8 py-4 hover:bg-[#7A1A2A] transition-colors duration-300 font-medium text-sm tracking-widest uppercase",
+      "secondary": "bg-transparent border border-[#0F172A] text-[#0F172A] rounded-none px-8 py-4 hover:bg-[#EFECE6] transition-colors duration-300 font-medium text-sm tracking-widest uppercase"
+    },
+    "property_cards": {
+      "style": "Flat design, zero shadow. Use sharp 1px borders (border-[#D1CDCA]). Background #EFECE6 or #FFFFFF. Generous internal padding for text (p-6). Image height min 300px.",
+      "badges": "Minimalist rectangular badges (e.g., 'FOR SALE', 'LET AGREED') top left of image."
+    },
+    "search_bar": {
+      "style": "Floating bento-style box overlapping the hero image. bg-white/90 backdrop-blur-md p-8 border border-[#D1CDCA] shadow-2xl. Use Shadcn selects and inputs but strip default rounded borders."
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "Thin stroke (strokeWidth={1.5}), elegant, no fills."
+    }
+  },
+  "image_urls": {
+    "hero_background": {
+      "url": "https://images.pexels.com/photos/36155657/pexels-photo-36155657.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Historic university architecture in Cambridge under a bright sky. Perfect for the main landing area overlay."
+    },
+    "about_cambridge": {
+      "url": "https://images.unsplash.com/photo-1627411437849-4bc5a9b9341d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxjYW1icmlkZ2UlMjB1ayUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3ODI0MTA4ODl8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Classic brown concrete building. Use for 'Why Cambridge' or Market Insights section."
+    },
+    "property_listings": [
+      {
+        "url": "https://images.unsplash.com/photo-1775974861298-8fe164a40024?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwyfHxicml0aXNoJTIwbHV4dXJ5JTIwaG9tZSUyMGV4dGVyaW9yfGVufDB8fHx8MTc4MjQxMDg4OXww&ixlib=rb-4.1.0&q=85",
+        "description": "Elegant house view, high-end property."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1696091197440-e31bd79988f6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHw0fHxicml0aXNoJTIwbHV4dXJ5JTIwaG9tZSUyMGV4dGVyaW9yfGVufDB8fHx8MTc4MjQxMDg4OXww&ixlib=rb-4.1.0&q=85",
+        "description": "Building with black door and fence."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1598307754921-da47ead0ad5f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwxfHxicml0aXNoJTIwbHV4dXJ5JTIwaG9tZSUyMGV4dGVyaW9yfGVufDB8fHx8MTc4MjQxMDg4OXww&ixlib=rb-4.1.0&q=85",
+        "description": "Brown brick house with white door."
+      }
+    ],
+    "team_agents": [
+      {
+        "url": "https://images.unsplash.com/photo-1647580427155-0483906cb9de?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxyZWFsJTIwZXN0YXRlJTIwYWdlbnQlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODI0MTA4ODh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Male agent in blue suit"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1581065178047-8ee15951ede6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxyZWFsJTIwZXN0YXRlJTIwYWdlbnQlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODI0MTA4ODh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Female agent in black blazer"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1770199105692-9e52ff137cad?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxyZWFsJTIwZXN0YXRlJTIwYWdlbnQlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3ODI0MTA4ODh8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Female agent with keys"
+      }
+    ]
+  },
+  "instructions_to_main_agent": {
+    "global_rules": [
+      "No generic 'Inter' or 'Roboto' fonts. Use the imported Cormorant Garamond and Manrope.",
+      "Remove border-radius classes from components. The design language is sharp, crisp, and authoritative (rounded-none or max rounded-sm).",
+      "Include data-testid on ALL interactive elements (buttons, inputs, links, tabs, specific cards).",
+      "Use Shadcn UI for dropdowns, forms, and tabs, but override the default styles to match the luxury aesthetic.",
+      "Ensure text accessibility over the hero image by using an overlay (bg-black/30 or gradient to transparent) if needed, but do not obscure the image entirely."
+    ],
+    "pages_to_build": {
+      "homepage": "Hero with property search overlay, featured properties grid, market insights/about Cambridge section, services overview, client testimonials, and a free valuation CTA.",
+      "property_listings": "Grid of properties with a sidebar or top bar for advanced filters (buy/rent toggle, beds, price, type).",
+      "property_detail": "Immersive image gallery, two-column layout for details/specs vs contact form, map integration, and agent profile.",
+      "contact_and_valuation": "Detailed forms utilizing Shadcn, office map, agent cards."
+    }
+  }
+}
