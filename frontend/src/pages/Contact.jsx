@@ -66,7 +66,7 @@ export default function Contact() {
               <div data-testid=\"contact-success\" className=\"text-center py-12\">
                 <Check size={48} strokeWidth={1} className=\"text-[#7A1A2A] mx-auto\" />
                 <h2 className=\"font-serif text-4xl mt-6 text-[#0F172A]\">Message received.</h2>
-                <p className=\"mt-3 text-[#475569]\">We'll respond within the next working hour.</p>
+                <p className=\"mt-3 text-[#475569]\">We&apos;ll respond within the next working hour.</p>
               </div>
             ) : (
               <form onSubmit={submit} className=\"grid grid-cols-1 md:grid-cols-2 gap-6\">
