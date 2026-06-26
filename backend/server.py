@@ -88,45 +88,6 @@ logger = logging.getLogger(__name__)
 async def shutdown_db_client():
   client.close()
 
-===FILE: /app/frontend/src/App.css
-/app/frontend/src/App.css:
-1|.App-logo {
-2|    height: 40vmin;
-3|    pointer-events: none;
-4|}
-5|
-6|@media (prefers-reduced-motion: no-preference) {
-7|    .App-logo {
-8|        animation: App-logo-spin infinite 20s linear;
-9|    }
-10|}
-11|
-12|.App-header {
-13|    background-color: #0f0f10;
-14|    min-height: 100vh;
-15|    display: flex;
-16|    flex-direction: column;
-17|    align-items: center;
-18|    justify-content: center;
-19|    font-size: calc(10px + 2vmin);
-20|    color: white;
-21|}
-22|
-23|.App-link {
-24|    color: #61dafb;
-25|}
-26|
-27|@keyframes App-logo-spin {
-28|    from {
-29|        transform: rotate(0deg);
-30|    }
-31|    to {
-32|        transform: rotate(360deg);
-33|    }
-34|}
-35|
-
-===END
 
 ===FILE: /app/frontend/src/index.css
 /app/frontend/src/index.css:
