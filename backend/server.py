@@ -88,14 +88,6 @@ logger = logging.getLogger(__name__)
 async def shutdown_db_client():
   client.close()
 
-===END
-
-===FILE: /app/backend/.env
-/app/backend/.env:
-1|MONGO_URL="mongodb://localhost:27017"
-2|DB_NAME="test_database"
-3|CORS_ORIGINS="*"
-
 
 ===FILE: /app/frontend/package.json
 /app/frontend/package.json:
